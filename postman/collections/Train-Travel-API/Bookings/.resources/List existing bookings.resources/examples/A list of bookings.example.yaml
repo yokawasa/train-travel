@@ -1,0 +1,144 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/bookings?page=1&limit=10"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  queryParams:
+    - key: page
+      value: "1"
+      description: The page number to return
+    - key: limit
+      value: "10"
+      description: The number of items to return per page
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+            "trip_id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+            "passenger_name": "John Doe",
+            "has_bicycle": true,
+            "has_dog": true
+          },
+          {
+            "id": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+            "trip_id": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+            "passenger_name": "Jane Smith",
+            "has_bicycle": false,
+            "has_dog": false
+          }
+        ],
+        "links": {
+          "self": "https://api.example.com/bookings",
+          "next": "https://api.example.com/bookings?page=2"
+        }
+      }
+    $type: |-
+      {
+        "allOf": [
+          {
+            "description": "This is a generic request/response wrapper which contains both data and links which serve as hypermedia controls (HATEOAS).",
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "description": "The wrapper for a collection is an array of objects.",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "links": {
+                "type": "object",
+                "description": "A set of hypermedia links which serve as controls for the client."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "description": "A booking for a train trip.",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique identifier for the booking",
+                      "format": "uuid"
+                    },
+                    "trip_id": {
+                      "type": "string",
+                      "description": "Identifier of the booked trip",
+                      "format": "uuid"
+                    },
+                    "passenger_name": {
+                      "type": "string",
+                      "description": "Name of the passenger"
+                    },
+                    "has_bicycle": {
+                      "type": "boolean",
+                      "description": "Indicates whether the passenger has a bicycle."
+                    },
+                    "has_dog": {
+                      "type": "boolean",
+                      "description": "Indicates whether the passenger has a dog."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "links": {
+                "allOf": [
+                  {
+                    "description": "The link to the current resource.",
+                    "type": "object",
+                    "properties": {
+                      "self": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  },
+                  {
+                    "description": "Links to the next and previous pages of a paginated response.",
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "prev": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+order: 1000

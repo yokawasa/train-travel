@@ -1,7 +1,11 @@
+import { randomUUID } from "crypto";
 import { Booking, Station, Trip } from "./api";
 
 export function createBooking(booking: Booking): Booking | Error {
-  return booking;
+  return {
+    ...booking,
+    id: randomUUID(),
+  };
 }
 
 export function getBooking(key: string): Booking | undefined {

@@ -5,8 +5,12 @@ exports.getBooking = getBooking;
 exports.getBookings = getBookings;
 exports.getStations = getStations;
 exports.getTrips = getTrips;
+const crypto_1 = require("crypto");
 function createBooking(booking) {
-    return booking;
+    return {
+        ...booking,
+        id: (0, crypto_1.randomUUID)(),
+    };
 }
 function getBooking(key) {
     return undefined;
