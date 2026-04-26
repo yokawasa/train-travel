@@ -1,0 +1,35 @@
+$kind: http-request
+description: Deletes a booking, cancelling the hold on the trip.
+url: "{{baseUrl}}/bookings/:bookingId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: bookingId
+    value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+    description: The ID of the booking to retrieve.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+examples: ./.resources/Delete a booking.resources/examples
+order: 4000

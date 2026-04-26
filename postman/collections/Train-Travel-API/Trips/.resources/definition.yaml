@@ -1,0 +1,5 @@
+$kind: collection
+description: |
+  Timetables and routes for train trips between stations, including pricing
+  and availability.
+order: 2000

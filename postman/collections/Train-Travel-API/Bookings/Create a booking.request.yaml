@@ -1,0 +1,49 @@
+$kind: http-request
+description: A booking is a temporary hold on a trip. It is not confirmed until the payment is processed.
+url: "{{baseUrl}}/bookings"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "trip_id": "a76cf43f-d6ff-b7da-9709-4203eadecfee",
+      "passenger_name": "string",
+      "has_bicycle": false,
+      "has_dog": true
+    }
+  $type: |-
+    {
+      "description": "A booking for a train trip.",
+      "type": "object",
+      "properties": {
+        "trip_id": {
+          "type": "string",
+          "description": "Identifier of the booked trip",
+          "format": "uuid"
+        },
+        "passenger_name": {
+          "type": "string",
+          "description": "Name of the passenger"
+        },
+        "has_bicycle": {
+          "type": "boolean",
+          "description": "Indicates whether the passenger has a bicycle."
+        },
+        "has_dog": {
+          "type": "boolean",
+          "description": "Indicates whether the passenger has a dog."
+        }
+      }
+    }
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+examples: ./.resources/Create a booking.resources/examples
+order: 2000

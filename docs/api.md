@@ -1,6 +1,6 @@
 # Train Travel API
 
-Travelling by train across Europe usually requires a train ticket.
+Travelling by train  usually requires a train ticket.
 
 With this API you will be able to search, book and pay for a train
 ticket and enjoy watching the landscapes by the window.

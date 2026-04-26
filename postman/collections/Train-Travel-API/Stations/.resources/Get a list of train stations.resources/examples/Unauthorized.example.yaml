@@ -1,0 +1,74 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/stations?page=1&limit=10&coordinates=52.5200,13.4050&search=Milano Centrale&country=DE"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  queryParams:
+    - key: page
+      value: "1"
+      description: The page number to return
+    - key: limit
+      value: "10"
+      description: The number of items to return per page
+    - key: coordinates
+      value: 52.5200,13.4050
+      description: |
+        The latitude and longitude of the user's location, to narrow down the search results to sites within a proximity of this location.
+    - key: search
+      value: Milano Centrale
+      description: |
+        A search term to filter the list of stations by name or address.
+    - key: country
+      value: DE
+      description: Filter stations by country code
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "type": "https://example.com/errors/unauthorized",
+        "title": "Unauthorized",
+        "status": 401,
+        "detail": "You do not have the necessary permissions."
+      }
+    $type: |-
+      {
+        "description": "A problem detail object as defined in RFC 7807.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the problem type"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem"
+          },
+          "instance": {
+            "type": "string",
+            "description": "A URI reference that identifies the specific occurrence of the problem"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code"
+          }
+        }
+      }
+order: 3000

@@ -1,0 +1,36 @@
+$kind: collection
+name: Train-Travel-API
+description: |-
+  Travelling by train usually requires a train ticket.
+
+  With this API you will be able to search, book and pay for a train  
+  ticket and enjoy watching the landscapes by the window.
+
+  Below is the set of API calls you will need to do to get your ticket.
+
+  | Description | API | Repeat? |
+  | --- | --- | --- |
+  | Search for train stations | `GET /stations` | Call this operation as many times as needed to find your origin and destination train stations |
+  | Lookup train schedules and ticket availability | `GET /trips` | As many calls as necessary, you will provide both the origin and destination station IDs and a traveling date |
+  | Make your booking | `POST /bookings` | Usually one booking is enough. But if you want to organize your next holidays you may book as many tickets as you like |
+  | Issue your ticket by paying | `POST /bookings/{bookingId}/payment` | One payment per booking is enough to receive your ticket |
+
+  Happy traveling!
+
+  > You can optionally subscribe to a webhook to receive updates about your bookings. 
+    
+
+  Contact Support:  
+  Name: Train Support  
+  Email: [support@example.com](https://mailto:support@example.com)
+variables:
+  baseUrl: http://localhost:8080
+auth:
+  - id: 33de86f8-3523-4261-a33d-db1ff8d225cc
+    type: oauth2
+    name: oauth2 auth
+    credentials:
+      scope: read write
+      accessTokenUrl: https://example.com/oauth/token
+      authUrl: https://example.com/oauth/authorize
+      grant_type: authorization_code
