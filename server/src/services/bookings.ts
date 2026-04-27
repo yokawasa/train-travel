@@ -32,16 +32,18 @@ export default new BookingsService({
   },
 
   async getBookings(req, res) {
-    const bookings = getBookings();
+    const allBookings = getBookings();
     const page = parseInt((req.query as any).page) || 1;
     const limit = parseInt((req.query as any).limit) || 10;
+    const start = (page - 1) * limit;
+    const paged = allBookings.slice(start, start + limit);
     const baseUrl = `/bookings`;
     return res.send({
-      data: bookings,
+      data: paged,
       links: {
-        self: `${baseUrl}?page=${page}`,
-        ...(bookings.length === limit && { next: `${baseUrl}?page=${page + 1}` }),
-        ...(page > 1 && { prev: `${baseUrl}?page=${page - 1}` }),
+        self: `${baseUrl}?page=${page}&limit=${limit}`,
+        ...(start + limit < allBookings.length && { next: `${baseUrl}?page=${page + 1}&limit=${limit}` }),
+        ...(page > 1 && { prev: `${baseUrl}?page=${page - 1}&limit=${limit}` }),
       },
     });
   },
