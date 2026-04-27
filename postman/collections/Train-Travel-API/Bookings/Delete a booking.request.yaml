@@ -1,4 +1,5 @@
 $kind: http-request
+name: Delete a booking
 description: Deletes a booking, cancelling the hold on the trip.
 url: "{{baseUrl}}/bookings/:bookingId"
 method: DELETE
@@ -6,7 +7,7 @@ headers:
   Accept: application/json
 pathVariables:
   - key: bookingId
-    value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+    value: "{{newBookingId}}"
     description: The ID of the booking to retrieve.
     $type: |-
       {
@@ -14,7 +15,8 @@ pathVariables:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -33,3 +35,34 @@ auth:
     grant_type: authorization_code
 examples: ./.resources/Delete a booking.resources/examples
 order: 4000
+scripts:
+  - type: afterResponse
+    code: |
+      // Contract Test: DELETE /bookings/{bookingId}
+      // check if booking that has bookingId of a1b2c3d4-e5f6-7890-abcd-ef1234567890 exist
+      // if the booking exists, do the following tests
+      // if the booking does not exist, check if status code is 404
+
+      const statusCode = pm.response.code;
+
+      if (statusCode === 204) {
+          // Booking existed and was successfully deleted
+          pm.test("Status code is 204 (booking existed and deleted)", function () {
+              pm.response.to.have.status(204);
+          });
+
+          pm.test("Response body is empty", function () {
+              pm.expect(pm.response.text()).to.be.empty;
+          });
+
+          pm.test("No Content-Type header on empty response", function () {
+              const contentType = pm.response.headers.get("Content-Type");
+              pm.expect(!contentType || contentType === "").to.be.true;
+          });
+      } else {
+          // Booking did not exist
+          pm.test("Status code is 404 (booking not found)", function () {
+              pm.response.to.have.status(404);
+          });
+      }
+    language: text/javascript

@@ -1,6 +1,6 @@
 $kind: http-example
 request:
-  url: "{{baseUrl}}/bookings?page=1&limit=10"
+  url: "{{baseUrl}}/bookings?page=1&limit=5"
   method: GET
   headers:
     - key: Accept
@@ -13,7 +13,7 @@ request:
       value: "1"
       description: The page number to return
     - key: limit
-      value: "10"
+      value: "5"
       description: The number of items to return per page
   body:
     type: text
@@ -47,7 +47,8 @@ response:
         ],
         "links": {
           "self": "https://api.example.com/bookings",
-          "next": "https://api.example.com/bookings?page=2"
+          "next": "https://api.example.com/bookings?page=2",
+          "prev": "<uri>"
         }
       }
     $type: |-
