@@ -16,9 +16,6 @@ info:
     | Make your booking | `POST /bookings` | Usually one booking is enough. But if you want to organize your next holidays you may book as many tickets as you like |
     | Issue your ticket by paying | `POST /bookings/{bookingId}/payment` | One payment per booking is enough to receive your ticket |
 
-    Happy traveling!
-
-    > You can optionally subscribe to a webhook to receive updates about your bookings.
   version: 1.2.1
   contact:
     name: Train Support
