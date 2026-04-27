@@ -23,7 +23,7 @@ register(app, {
 
 const apiErrors = [NotFoundError, BadRequestError, UnauthorizedError, ForbiddenError, ConflictError, TooManyRequestsError, InternalServerError];
 
-// Add Express error handler to ignore API error instances (already sent response)
+// Add Express error handler to suppress stack trace output for API errors in Express error handler
 app.use((err: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (apiErrors.some((E) => err instanceof E)) {
     return;
