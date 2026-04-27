@@ -1,4 +1,5 @@
 $kind: http-request
+name: Get available train trips
 description: |
   Returns a list of available train trips between the specified origin and destination stations on the given date, and allows for filtering by bicycle and dog allowances.
 url: "{{baseUrl}}/trips?page=1&limit=10&origin=efdbb9d1-02c2-4bc3-afb7-6788d8782b1e&destination=b2e783e1-c824-4d63-b37a-d8d698862f1d&date=2024-02-01T09:00:00Z&bicycles=false&dogs=false"
@@ -44,7 +45,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -60,7 +62,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -76,7 +79,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "<dateTime>"
           }
         },
         "required": [
@@ -114,3 +118,51 @@ body:
   content: ""
 examples: ./.resources/Get available train trips.resources/examples
 order: 1000
+scripts:
+  - type: afterResponse
+    code: |-
+      // Contract Test: GET /trips
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Content-Type is application/json", function () {
+          pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+      });
+
+      pm.test("Response has required top-level fields: data and links", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("data");
+          pm.expect(json).to.have.property("links");
+          pm.expect(json.data).to.be.an("array");
+          pm.expect(json.links).to.be.an("object");
+      });
+
+      pm.test("Each trip has correct field types when present", function () {
+          const json = pm.response.json();
+          json.data.forEach(function (trip) {
+              if (trip.id !== undefined) {
+                  pm.expect(trip.id).to.be.a("string");
+                  pm.expect(trip.id).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+              }
+              if (trip.origin !== undefined) pm.expect(trip.origin).to.be.a("string");
+              if (trip.destination !== undefined) pm.expect(trip.destination).to.be.a("string");
+              if (trip.departure_time !== undefined) {
+                  pm.expect(trip.departure_time).to.be.a("string");
+                  pm.expect(new Date(trip.departure_time).toString()).to.not.equal("Invalid Date");
+              }
+              if (trip.arrival_time !== undefined) {
+                  pm.expect(trip.arrival_time).to.be.a("string");
+                  pm.expect(new Date(trip.arrival_time).toString()).to.not.equal("Invalid Date");
+              }
+              if (trip.price !== undefined) pm.expect(trip.price).to.be.a("number");
+              if (trip.operator !== undefined) pm.expect(trip.operator).to.be.a("string");
+              if (trip.bicycles_allowed !== undefined) pm.expect(trip.bicycles_allowed).to.be.a("boolean");
+              if (trip.dogs_allowed !== undefined) pm.expect(trip.dogs_allowed).to.be.a("boolean");
+          });
+      });
+
+      pm.test("Links object has self field", function () {
+          const json = pm.response.json();
+          pm.expect(json.links).to.have.property("self").that.is.a("string");
+      });

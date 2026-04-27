@@ -101,7 +101,7 @@ class BookingsService {
                 try {
                     yield this.methods.createBooking(req, {
                         send: (responseBody) => __awaiter(this, void 0, void 0, function* () {
-                            res.json(serializers.CreateBookingResponse.jsonOrThrow(responseBody, {
+                            res.status(201).json(serializers.CreateBookingResponse.jsonOrThrow(responseBody, {
                                 unrecognizedObjectKeys: "strip",
                             }));
                         }),
