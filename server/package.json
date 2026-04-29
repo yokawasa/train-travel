@@ -4,6 +4,12 @@
     "build": "tsc",
     "start": "node lib/server.js",
     "dev": "nodemon src/server.ts",
+    "daemon:start": "npm run build && pm2 start lib/server.js --name train-travel-api",
+    "daemon:stop": "pm2 stop train-travel-api && pm2 delete train-travel-api",
+    "postman:lint": "postman spec lint ../openapi.yaml",
+    "postman:test": "npm run postman:test-contract && npm run postman:test-scenario",
+    "postman:test-contract": "postman collection run ../postman/collections/Train-Travel-API -e ../postman/environments/Development.environment.yaml",
+    "postman:test-scenario": "postman collection run ../postman/collections/Train-Travel-API-Scenario-Tests -e ../postman/environments/Development.environment.yaml",
     "format": "prettier --write src/**",
     "format:check": "prettier --check src/**",
     "lint": "eslint",
@@ -11,7 +17,8 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pm2": "^6.0.14"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
