@@ -1,7 +1,22 @@
-# Use this workspace to collaborate
 workspace:
   id: aa73d815-896e-44d3-8b2e-eacdb2cd3200
 
 localResources:
   specs:
     - ../openapi.yaml
+  collections:
+    - ../postman/collections/Train-Travel-API
+    - ../postman/collections/Train-Travel-API-Scenario-Tests
+  environments:
+    - ../postman/environments/Development.environment.yaml
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Train-Travel-API: 52523-2f62e5fc-b2b8-4bd5-aeae-f323d90fcea9
+    ../postman/collections/Train-Travel-API-Scenario-Tests: 52523-d1202ae3-8c6d-42ee-8670-7d623416ca6f
+  environments:
+    ../postman/environments/Development.environment.yaml: 52523-beafaf3a-74e3-4f13-96bd-2de25a19e249
+  specs:
+    ../openapi.yaml: cade78e6-cd8f-4af3-9b0c-363b2d683611
