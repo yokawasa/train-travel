@@ -1,0 +1,39 @@
+$kind: http-request
+name: '03. 予約を個別取得する'
+description: 作成した予約IDを使って個別の予約詳細を取得します。
+url: '{{baseUrl}}/bookings/:bookingId'
+method: GET
+order: 3000
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: bookingId
+    value: '{{newBookingId}}'
+    description: 取得対象の予約ID
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has correct booking ID", function () {
+          const json = pm.response.json();
+          const newBookingId = pm.collectionVariables.get("newBookingId");
+          pm.expect(json).to.have.property("id", newBookingId);
+      });
+
+      pm.test("Response has required Booking fields", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("trip_id").that.is.a("string");
+          pm.expect(json).to.have.property("passenger_name").that.is.a("string");
+      });
+    language: text/javascript

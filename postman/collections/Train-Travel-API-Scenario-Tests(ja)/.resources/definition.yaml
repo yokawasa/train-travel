@@ -1,0 +1,19 @@
+$kind: collection
+id: BEAbE6ca80dEd7Be75Afb4b0
+name: Train-Travel-API-Scenario-Tests(ja)
+description: |-
+  Train Travel API のシナリオテストコレクション
+
+  次の3つのシナリオを含みます:
+
+  1. チケット購入フロー（Happy Path）: 駅検索 → 便検索 → 予約 → 支払い
+      
+  2. 予約ライフサイクル: 予約作成 → 一覧確認 → 個別取得 → キャンセル
+      
+  3. ペット・自転車フィルタリング: 条件付き便検索 → 予約 → 内容確認
+variables:
+  originStationId: ""
+  destinationStationId: ""
+  tripId: ""
+  newBookingId: ""
+  bookingId: ""

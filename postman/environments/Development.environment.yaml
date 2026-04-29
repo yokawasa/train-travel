@@ -1,4 +1,4 @@
 name: Development
 values:
   - key: baseUrl
-    value: ''
+    value: 'http://localhost:8080'

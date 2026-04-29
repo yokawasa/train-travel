@@ -1,0 +1,57 @@
+$kind: http-request
+name: '01. Search Trips with Pet & Bicycle Filters'
+description: Search for trips that allow pets and bicycles on board.
+url: '{{baseUrl}}/trips'
+method: GET
+order: 1000
+headers:
+  - key: Accept
+    value: application/json
+queryParams:
+  - key: origin
+    value: 'efdbb9d1-02c2-4bc3-afb7-6788d8782b1e'
+    description: ID of the origin station
+  - key: destination
+    value: 'b2e783e1-c824-4d63-b37a-d8d698862f1d'
+    description: ID of the destination station
+  - key: date
+    value: '2024-02-01T09:00:00Z'
+    description: Departure date and time (ISO 8601 format)
+  - key: bicycles
+    value: 'true'
+    description: Only trips that allow bicycles
+  - key: dogs
+    value: 'true'
+    description: Only trips that allow dogs
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has trip data", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("data");
+          pm.expect(json.data).to.be.an("array");
+      });
+
+      pm.test("All returned trips allow bicycles and dogs", function () {
+          const json = pm.response.json();
+          json.data.forEach(function (trip) {
+              if (trip.bicycles_allowed !== undefined) {
+                  pm.expect(trip.bicycles_allowed).to.be.true;
+              }
+              if (trip.dogs_allowed !== undefined) {
+                  pm.expect(trip.dogs_allowed).to.be.true;
+              }
+          });
+      });
+
+      // Save the first trip ID
+      const json = pm.response.json();
+      if (json.data && json.data.length >= 1) {
+          pm.collectionVariables.set("tripId", json.data[0].id);
+          console.log("tripId (pet/bicycle) set to: " + json.data[0].id);
+      }
+    language: text/javascript

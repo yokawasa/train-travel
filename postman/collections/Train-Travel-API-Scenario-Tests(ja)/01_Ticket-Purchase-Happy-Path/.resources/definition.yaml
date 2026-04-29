@@ -1,0 +1,6 @@
+$kind: collection
+name: "シナリオ1: チケット購入フロー（Happy Path）"
+description: |-
+  駅検索 → 便検索 → 予約 → 支払い の一連のフローをテストします。  
+  各ステップで取得したIDを次のリクエストに引き渡します。
+order: 1000

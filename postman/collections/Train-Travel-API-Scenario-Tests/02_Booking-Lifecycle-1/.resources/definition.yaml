@@ -1,0 +1,12 @@
+$kind: collection
+name: 02_Booking-Lifecycle
+description: |-
+  Complete booking management scenario:
+
+  1. Create a booking
+  2. List all bookings
+  3. Get specific booking details
+  4. Cancel the booking
+
+
+order: 2000

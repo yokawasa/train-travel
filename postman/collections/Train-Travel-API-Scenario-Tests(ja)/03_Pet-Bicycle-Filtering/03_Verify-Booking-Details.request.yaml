@@ -1,0 +1,50 @@
+$kind: http-request
+name: '03. 予約内容を確認する'
+description: 作成した予約の詳細を取得し、ペット・自転車フラグが正しく設定されていることを確認します。
+url: '{{baseUrl}}/bookings/:bookingId'
+method: GET
+order: 3000
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: bookingId
+    value: '{{newBookingId}}'
+    description: 確認対象の予約ID
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Booking has correct ID", function () {
+          const json = pm.response.json();
+          const newBookingId = pm.collectionVariables.get("newBookingId");
+          pm.expect(json).to.have.property("id", newBookingId);
+      });
+
+      pm.test("Booking has bicycle and dog flags set to true", function () {
+          const json = pm.response.json();
+          if (json.has_bicycle !== undefined) {
+              pm.expect(json.has_bicycle).to.be.true;
+          }
+          if (json.has_dog !== undefined) {
+              pm.expect(json.has_dog).to.be.true;
+          }
+      });
+
+      pm.test("Booking has required fields", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("trip_id").that.is.a("string");
+          pm.expect(json).to.have.property("passenger_name").that.is.a("string");
+          pm.expect(json).to.have.property("links").that.is.an("object");
+      });
+    language: text/javascript

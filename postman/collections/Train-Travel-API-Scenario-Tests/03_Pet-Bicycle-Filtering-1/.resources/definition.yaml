@@ -1,0 +1,10 @@
+$kind: collection
+name: 03_Pet-Bicycle-Filtering
+description: |-
+  Scenario for booking trips with special requirements:
+
+  1. Search trips with pet and bicycle filters
+  2. Create booking with special requirements
+  3. Verify booking includes pet and bicycle options
+
+order: 3000

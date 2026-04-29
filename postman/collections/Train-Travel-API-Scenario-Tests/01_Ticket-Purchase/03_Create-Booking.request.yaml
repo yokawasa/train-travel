@@ -1,0 +1,45 @@
+$kind: http-request
+name: '03. Create Booking'
+description: Create a booking using the searched trip ID and save the booking ID.
+url: '{{baseUrl}}/bookings'
+method: POST
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "trip_id": "{{tripId}}",
+      "passenger_name": "Test Passenger",
+      "has_bicycle": false,
+      "has_dog": false
+    }
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has booking ID", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("id").that.is.a("string");
+          pm.expect(json.id).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+      });
+
+      // Save the booking ID
+      const json = pm.response.json();
+      pm.collectionVariables.set("newBookingId", json.id);
+      console.log("newBookingId set to: " + json.id);
+    language: text/javascript
