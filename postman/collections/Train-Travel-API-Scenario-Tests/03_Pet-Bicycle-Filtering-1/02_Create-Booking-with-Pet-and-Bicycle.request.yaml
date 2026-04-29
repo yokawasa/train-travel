@@ -1,0 +1,50 @@
+$kind: http-request
+name: '02. Create Booking with Pet and Bicycle'
+description: Create a booking as a passenger travelling with a pet and a bicycle.
+url: '{{baseUrl}}/bookings'
+method: POST
+order: 2000
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "trip_id": "{{tripId}}",
+      "passenger_name": "Pet & Bicycle Passenger",
+      "has_bicycle": true,
+      "has_dog": true
+    }
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Booking created with bicycle and dog flags", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("id").that.is.a("string");
+          if (json.has_bicycle !== undefined) {
+              pm.expect(json.has_bicycle).to.be.true;
+          }
+          if (json.has_dog !== undefined) {
+              pm.expect(json.has_dog).to.be.true;
+          }
+      });
+
+      // Save the booking ID
+      const json = pm.response.json();
+      pm.collectionVariables.set("newBookingId", json.id);
+      console.log("newBookingId (pet/bicycle) set to: " + json.id);
+    language: text/javascript

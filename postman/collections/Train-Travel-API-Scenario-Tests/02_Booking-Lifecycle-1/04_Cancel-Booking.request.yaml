@@ -1,0 +1,39 @@
+$kind: http-request
+name: '04. Cancel Booking'
+description: Cancel (delete) the created booking and verify that 204 No Content is returned.
+url: '{{baseUrl}}/bookings/:bookingId'
+method: DELETE
+order: 4000
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: bookingId
+    value: '{{newBookingId}}'
+    description: ID of the booking to cancel
+auth:
+  type: oauth2
+  credentials:
+    scope: read write
+    accessTokenUrl: https://example.com/oauth/token
+    authUrl: https://example.com/oauth/authorize
+    grant_type: authorization_code
+scripts:
+  - type: afterResponse
+    code: |-
+      const statusCode = pm.response.code;
+
+      if (statusCode === 204) {
+          pm.test("Status code is 204 (booking cancelled successfully)", function () {
+              pm.response.to.have.status(204);
+          });
+
+          pm.test("Response body is empty", function () {
+              pm.expect(pm.response.text()).to.be.empty;
+          });
+      } else {
+          pm.test("Status code is 404 (booking not found)", function () {
+              pm.response.to.have.status(404);
+          });
+      }
+    language: text/javascript

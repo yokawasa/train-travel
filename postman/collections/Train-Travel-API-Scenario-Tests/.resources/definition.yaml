@@ -1,0 +1,18 @@
+$kind: collection
+name: Train-Travel-API-Scenario-Tests
+description: |-
+  
+  # Train Travel API scenario test collection
+
+  The collection includes the following three scenarios:
+
+  1. **Ticket Purchase Flow**: Search stations → Search trips → Create booking → Make payment
+  2. **Booking Lifecycle**: Create booking → Check booking list → Retrieve booking details → Cancel booking
+  3. **Pet and Bicycle Filtering**: Search trips with filters → Create booking → Verify booking details
+
+variables:
+  originStationId: ""
+  destinationStationId: ""
+  tripId: ""
+  newBookingId: ""
+  bookingId: ""
