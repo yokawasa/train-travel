@@ -1,5 +1,6 @@
 name: "Postman CI"
-ｊon:
+
+on:
   # Trigger API testing when PR to main is created or updated
   pull_request:
     branches:
