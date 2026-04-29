@@ -1,0 +1,39 @@
+name: "Postman CI"
+on:
+  # Trigger API testing when PR to main is created or updated
+  pull_request:
+    branches:
+      - main
+  # Trigger API testing and sync & push local elements to workspace in the cloud when code is merged to main
+  push:
+    branches:
+      - main
+
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Start API server as daemon
+        run: npm run daemon:start
+      - name: Install Postman CLI
+        run: curl -o- "https://dl-cli.pstmn.io/install/unix.sh" | sh
+      - name: Verfiy Postman CLI version
+        run: postman --version
+      - name: Login to Postman
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: npm run postman:test
+      - name: Push to Postman Cloud (only when code is merged)
+        if: github.event_name == 'push'
+        run: postman workspace push -y
+      - name: Stop API server
+        if: always()
+        run: npm run daemon:stop
