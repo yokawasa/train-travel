@@ -1,5 +1,5 @@
 name: "Postman CI"
-on:
+ｊon:
   # Trigger API testing when PR to main is created or updated
   pull_request:
     branches:
@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: '24.x'
       - name: Install dependencies
-        run: npm install
+        run: npm --prefix server install
       - name: Start API server as daemon
-        run: npm run daemon:start
+        run: npm --prefix server run daemon:start
       - name: Install Postman CLI
         run: curl -o- "https://dl-cli.pstmn.io/install/unix.sh" | sh
       - name: Verfiy Postman CLI version
@@ -30,10 +30,10 @@ jobs:
       - name: Login to Postman
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
-        run: npm run postman:test
+        run: npm --prefix server run postman:test
       - name: Push to Postman Cloud (only when code is merged)
         if: github.event_name == 'push'
         run: postman workspace push -y
       - name: Stop API server
         if: always()
-        run: npm run daemon:stop
+        run: npm --prefix server run daemon:stop
