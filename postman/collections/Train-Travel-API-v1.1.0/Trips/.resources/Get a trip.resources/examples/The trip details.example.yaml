@@ -31,14 +31,12 @@ response:
         "destination": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
         "departure_time": "2024-02-01T10:00:00Z",
         "arrival_time": "2024-02-01T16:00:00Z",
-        "price": 50,
         "operator": "Deutsche Bahn",
+        "price": 50,
         "bicycles_allowed": true,
         "dogs_allowed": true,
         "links": {
-          "self": "https://api.example.com/trips/ea399ba1-6d95-433f-92d1-83f67b775594",
-          "origin": "https://api.example.com/stations/efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
-          "destination": "https://api.example.com/stations/b2e783e1-c824-4d63-b37a-d8d698862f1d"
+          "self": "https://api.example.com/trips/ea399ba1-6d95-433f-92d1-83f67b775594"
         }
       }
     $type: |-

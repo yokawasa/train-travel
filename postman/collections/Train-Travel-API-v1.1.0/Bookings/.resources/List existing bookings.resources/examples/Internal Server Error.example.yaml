@@ -30,8 +30,9 @@ response:
       {
         "type": "https://example.com/errors/internal-server-error",
         "title": "Internal Server Error",
-        "status": 500,
-        "detail": "An unexpected error occurred."
+        "detail": "An unexpected error occurred.",
+        "instance": "<string>",
+        "status": 500
       }
     $type: |-
       {

@@ -15,7 +15,8 @@ pathVariables:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -29,17 +30,13 @@ body:
       "amount": 49.99,
       "currency": "gbp",
       "source": {
-        "object": "card",
         "name": "J. Doe",
         "number": "4242424242424242",
-        "cvc": "123",
-        "exp_month": 12,
-        "exp_year": 2025,
-        "address_line1": "123 Fake Street",
-        "address_line2": "4th Floor",
-        "address_city": "London",
-        "address_country": "gb",
-        "address_post_code": "N12 9XX"
+        "account_type": "company",
+        "bank_name": "<string>",
+        "country": "<string>",
+        "object": "card",
+        "sort_code": "<string>"
       }
     }
   $type: |-

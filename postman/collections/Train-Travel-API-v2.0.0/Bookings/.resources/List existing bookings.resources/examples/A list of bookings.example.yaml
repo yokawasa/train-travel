@@ -57,7 +57,8 @@ response:
         ],
         "links": {
           "self": "https://api.example.com/bookings",
-          "next": "https://api.example.com/bookings?page=2"
+          "next": "https://api.example.com/bookings?page=2",
+          "prev": "<uri>"
         }
       }
     $type: |-

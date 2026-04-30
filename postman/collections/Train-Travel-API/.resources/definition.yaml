@@ -23,7 +23,7 @@ variables:
   bookingId: ""
   newBookingId: ""
 auth:
-  - id: 180f5ab2-c42a-4007-bd29-42d27eff5d3b
+  - id: 2b10261d-f670-4825-8586-b4d1f070483f
     type: oauth2
     name: oauth2 auth
     credentials:

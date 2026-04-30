@@ -38,16 +38,43 @@ queryParams:
     value: 52.5200,13.4050
     description: |
       The latitude and longitude of the user's location, to narrow down the search results to sites within a proximity of this location.
-    $type: string
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "default": "<string>"
+          }
+        }
+      }
   - key: search
     value: Milano Centrale
     description: |
       A search term to filter the list of stations by name or address.
-    $type: string
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "default": "<string>"
+          }
+        }
+      }
   - key: country
     value: DE
     description: Filter stations by country code
-    $type: string
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "default": "<string>"
+          }
+        }
+      }
 body:
   type: text
   content: ""

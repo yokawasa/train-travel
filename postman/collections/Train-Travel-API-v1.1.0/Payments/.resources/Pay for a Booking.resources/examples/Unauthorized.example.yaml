@@ -21,16 +21,16 @@ request:
         "amount": 49.99,
         "currency": "gbp",
         "source": {
-          "object": "card",
           "name": "J. Doe",
           "number": "4242424242424242",
           "cvc": "123",
           "exp_month": 12,
           "exp_year": 2025,
+          "address_country": "gb",
+          "object": "card",
           "address_line1": "123 Fake Street",
           "address_line2": "4th Floor",
           "address_city": "London",
-          "address_country": "gb",
           "address_post_code": "N12 9XX"
         }
       }
@@ -46,8 +46,9 @@ response:
       {
         "type": "https://example.com/errors/unauthorized",
         "title": "Unauthorized",
-        "status": 401,
-        "detail": "You do not have the necessary permissions."
+        "detail": "You do not have the necessary permissions.",
+        "instance": "<string>",
+        "status": 401
       }
     $type: |-
       {

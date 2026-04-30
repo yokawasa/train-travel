@@ -38,7 +38,7 @@ description: |-
 variables:
   baseUrl: http://localhost:8080
 auth:
-  - id: 84ac40aa-6257-4b5e-86a4-2646ddb25a06
+  - id: fd0fda95-893b-4d6a-b5d9-ef771ef8a0a1
     type: oauth2
     name: oauth2 auth
     credentials:

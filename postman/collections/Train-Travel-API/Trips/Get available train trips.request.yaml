@@ -44,7 +44,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -60,7 +61,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [
@@ -76,7 +78,8 @@ queryParams:
         "properties": {
           "value": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "default": "<dateTime>"
           }
         },
         "required": [

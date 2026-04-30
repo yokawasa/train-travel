@@ -14,7 +14,8 @@ pathVariables:
         "properties": {
           "value": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "default": "<uuid>"
           }
         },
         "required": [

@@ -30,12 +30,13 @@ response:
         "amount": 49.99,
         "currency": "gbp",
         "source": {
-          "object": "card",
           "name": "J. Doe",
           "number": "************4242",
           "exp_month": 12,
           "exp_year": 2025,
           "address_country": "gb",
+          "object": "card",
+          "address_city": "<string>",
           "address_post_code": "N12 9XX"
         },
         "status": "succeeded",

@@ -870,7 +870,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 webhooks:
-  /newBooking:
+  newBooking:
     post:
       operationId: new-booking
       summary: New Booking
@@ -901,7 +901,7 @@ webhooks:
       responses:
         '200':
           description: Return a 200 status to indicate that the data was received successfully.
-  /bookingCancelled:
+  bookingCancelled:
     post:
       operationId: booking-cancelled
       summary: Booking Cancelled

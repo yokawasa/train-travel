@@ -31,11 +31,11 @@ response:
         "destination": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
         "departure_time": "2024-02-01T10:00:00Z",
         "arrival_time": "2024-02-01T16:00:00Z",
+        "operator": "Deutsche Bahn",
         "pricing": {
           "amount": 50,
           "currency": "eur"
         },
-        "operator": "Deutsche Bahn",
         "bicycles_allowed": true,
         "dogs_allowed": true
       }

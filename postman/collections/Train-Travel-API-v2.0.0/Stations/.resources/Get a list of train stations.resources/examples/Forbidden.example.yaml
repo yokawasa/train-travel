@@ -41,8 +41,9 @@ response:
       {
         "type": "https://example.com/errors/forbidden",
         "title": "Forbidden",
-        "status": 403,
-        "detail": "Access is forbidden with the provided credentials."
+        "detail": "Access is forbidden with the provided credentials.",
+        "instance": "<string>",
+        "status": 403
       }
     $type: |-
       {

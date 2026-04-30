@@ -42,8 +42,9 @@ response:
       {
         "type": "https://example.com/errors/too-many-requests",
         "title": "Too Many Requests",
-        "status": 429,
-        "detail": "You have exceeded the rate limit."
+        "detail": "You have exceeded the rate limit.",
+        "instance": "<string>",
+        "status": 429
       }
     $type: |-
       {
