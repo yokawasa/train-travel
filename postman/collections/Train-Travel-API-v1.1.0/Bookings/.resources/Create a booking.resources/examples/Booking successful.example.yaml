@@ -32,7 +32,7 @@ response:
         "trip_id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
         "passenger_name": "John Doe",
         "has_bicycle": true,
-        "has_dog": true,
+        "has_dog": false,
         "links": {
           "self": "https://api.example.com/bookings/efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
         }
