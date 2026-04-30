@@ -1,0 +1,28 @@
+$kind: http-request
+description: Returns the details of a specific train station.
+url: "{{baseUrl}}/stations/:stationId"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: stationId
+    value: efdbb9d1-02c2-4bc3-afb7-6788d8782b1e
+    description: The ID of the station to retrieve.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+examples: ./.resources/Get a station.resources/examples
+order: 2000

@@ -1,0 +1,5 @@
+$kind: collection
+description: |
+  Create and manage bookings for train trips, including passenger details
+  and optional extras.
+order: 3000

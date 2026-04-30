@@ -1,0 +1,22 @@
+$kind: http-request
+description: |
+  Subscribe to new bookings being created, to update integrations for your users.  Related data is available via the links provided in the request.
+url: "{{baseUrl}}/newBooking"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+      "trip_id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+      "passenger_name": "John Doe",
+      "has_bicycle": true,
+      "has_dog": true,
+      "links": {
+        "self": "https://api.example.com/bookings/1725ff48-ab45-4bb5-9d02-88745177dedb"
+      }
+    }
+examples: ./.resources/New Booking.resources/examples
+order: 1000

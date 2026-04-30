@@ -1,5 +1,4 @@
 $kind: http-request
-name: Create a booking
 description: A booking is a temporary hold on a trip. It is not confirmed until the payment is processed.
 url: "{{baseUrl}}/bookings"
 method: POST
@@ -46,8 +45,6 @@ auth:
     accessTokenUrl: https://example.com/oauth/token
     authUrl: https://example.com/oauth/authorize
     grant_type: authorization_code
-examples: ./.resources/Create a booking.resources/examples
-order: 2000
 scripts:
   - type: afterResponse
     code: |
@@ -85,3 +82,10 @@ scripts:
           pm.expect(json.links).to.have.property("self").that.is.a("string");
       });
     language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '201'});
+    language: text/javascript
+examples: ./.resources/Create a booking.resources/examples
+order: 2000

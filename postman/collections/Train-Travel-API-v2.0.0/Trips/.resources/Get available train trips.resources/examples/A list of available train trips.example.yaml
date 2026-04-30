@@ -1,0 +1,243 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/trips?page=1&limit=10&origin=efdbb9d1-02c2-4bc3-afb7-6788d8782b1e&destination=b2e783e1-c824-4d63-b37a-d8d698862f1d&date=2024-02-01T09:00:00Z&bicycles=false&dogs=false"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  queryParams:
+    - key: page
+      value: "1"
+      description: The page number to return
+    - key: limit
+      value: "10"
+      description: The number of items to return per page
+    - key: origin
+      value: efdbb9d1-02c2-4bc3-afb7-6788d8782b1e
+      description: The ID of the origin station
+    - key: destination
+      value: b2e783e1-c824-4d63-b37a-d8d698862f1d
+      description: The ID of the destination station
+    - key: date
+      value: 2024-02-01T09:00:00Z
+      description: The date and time of the trip in ISO 8601 format in origin station's timezone.
+    - key: bicycles
+      value: "false"
+      description: Only return trips where bicycles are known to be allowed
+    - key: dogs
+      value: "false"
+      description: Only return trips where dogs are known to be allowed
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "ea399ba1-6d95-433f-92d1-83f67b775594",
+            "origin": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+            "destination": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+            "departure_time": "2024-02-01T10:00:00Z",
+            "arrival_time": "2024-02-01T16:00:00Z",
+            "pricing": {
+              "amount": 50,
+              "currency": "eur"
+            },
+            "operator": "Deutsche Bahn",
+            "bicycles_allowed": true,
+            "dogs_allowed": true,
+            "links": {
+              "self": "https://api.example.com/trips/ea399ba1-6d95-433f-92d1-83f67b775594",
+              "origin": "https://api.example.com/stations/efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+              "destination": "https://api.example.com/stations/b2e783e1-c824-4d63-b37a-d8d698862f1d"
+            }
+          },
+          {
+            "id": "4d67459c-af07-40bb-bb12-178dbb88e09f",
+            "origin": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+            "destination": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+            "departure_time": "2024-02-01T12:00:00Z",
+            "arrival_time": "2024-02-01T18:00:00Z",
+            "pricing": {
+              "amount": 50,
+              "currency": "eur"
+            },
+            "operator": "SNCF",
+            "bicycles_allowed": true,
+            "dogs_allowed": true,
+            "links": {
+              "self": "https://api.example.com/trips/4d67459c-af07-40bb-bb12-178dbb88e09f",
+              "origin": "https://api.example.com/stations/b2e783e1-c824-4d63-b37a-d8d698862f1d",
+              "destination": "https://api.example.com/stations/efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
+            }
+          }
+        ],
+        "links": {
+          "self": "https://api.example.com/trips?origin=efdbb9d1-02c2-4bc3-afb7-6788d8782b1e&destination=b2e783e1-c824-4d63-b37a-d8d698862f1d&date=2024-02-01",
+          "next": "https://api.example.com/trips?origin=efdbb9d1-02c2-4bc3-afb7-6788d8782b1e&destination=b2e783e1-c824-4d63-b37a-d8d698862f1d&date=2024-02-01&page=2"
+        }
+      }
+    $type: |-
+      {
+        "allOf": [
+          {
+            "description": "This is a generic request/response wrapper which contains both data and links which serve as hypermedia controls (HATEOAS).",
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "description": "The wrapper for a collection is an array of objects.",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "links": {
+                "type": "object",
+                "description": "A set of hypermedia links which serve as controls for the client."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {
+                      "description": "A train trip.",
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Unique identifier for the trip",
+                          "format": "uuid"
+                        },
+                        "origin": {
+                          "type": "string",
+                          "description": "The starting station of the trip"
+                        },
+                        "destination": {
+                          "type": "string",
+                          "description": "The destination station of the trip"
+                        },
+                        "departure_time": {
+                          "type": "string",
+                          "description": "The date and time when the trip departs",
+                          "format": "date-time"
+                        },
+                        "arrival_time": {
+                          "type": "string",
+                          "description": "The date and time when the trip arrives",
+                          "format": "date-time"
+                        },
+                        "operator": {
+                          "type": "string",
+                          "description": "The name of the operator of the trip"
+                        },
+                        "pricing": {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "type": "number",
+                              "description": "The cost of the trip"
+                            },
+                            "currency": {
+                              "type": "string",
+                              "enum": [
+                                "bam",
+                                "bgn",
+                                "chf",
+                                "eur",
+                                "gbp",
+                                "nok",
+                                "sek",
+                                "try"
+                              ],
+                              "description": "Three-letter ISO currency code"
+                            }
+                          }
+                        },
+                        "bicycles_allowed": {
+                          "type": "boolean",
+                          "description": "Indicates whether bicycles are allowed on the trip"
+                        },
+                        "dogs_allowed": {
+                          "type": "boolean",
+                          "description": "Indicates whether dogs are allowed on the trip"
+                        }
+                      }
+                    },
+                    {
+                      "description": "The link to the origin station resource.",
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    {
+                      "description": "The link to the destination station resource.",
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "links": {
+                "allOf": [
+                  {
+                    "description": "The link to the current resource.",
+                    "type": "object",
+                    "properties": {
+                      "self": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  },
+                  {
+                    "description": "Links to the next and previous pages of a paginated response.",
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "prev": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+order: 1000

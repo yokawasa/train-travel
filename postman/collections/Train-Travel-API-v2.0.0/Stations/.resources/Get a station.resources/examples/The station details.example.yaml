@@ -1,0 +1,69 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/stations/:stationId"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    - key: stationId
+      value: efdbb9d1-02c2-4bc3-afb7-6788d8782b1e
+      description: The ID of the station to retrieve.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "name": "Berlin Hauptbahnhof",
+        "address": "Invalidenstraße 10557 Berlin, Germany",
+        "country": "DE",
+        "timezone": "Europe/Berlin"
+      }
+    $type: |-
+      {
+        "description": "A train station.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the station.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the station"
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the station."
+          },
+          "country": {
+            "type": "string",
+            "description": "The ISO country code of the station."
+          },
+          "timezone": {
+            "type": "string",
+            "description": "The timezone of the station in the [IANA Time Zone Database format](https://www.iana.org/time-zones)."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "address",
+          "country"
+        ]
+      }
+order: 1000

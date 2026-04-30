@@ -1,0 +1,48 @@
+$kind: collection
+description: |-
+  Travelling by train usually requires a train ticket.
+
+  With this API you will be able to search, book and pay for a train
+  ticket and enjoy watching the landscapes by the window.
+
+  Below is the set of API calls you will need to do to get your ticket.
+
+  | Description | API | Repeat? |
+  |---|---|---|
+  | Search for train stations | `GET /stations` | Call this operation as many times as needed to find your origin and destination train stations |
+  | Get a specific station | `GET /stations/{stationId}` | **New in v2.0.0** |
+  | Lookup train schedules and ticket availability | `GET /trips` | As many calls as necessary, you will provide both the origin and destination station IDs and a traveling date |
+  | Get a specific trip | `GET /trips/{tripId}` | **New in v2.0.0** |
+  | Make your booking | `POST /bookings` | Usually one booking is enough. But if you want to organize your next holidays you may book as many tickets as you like |
+  | Issue your ticket by paying | `POST /bookings/{bookingId}/payment` | One payment per booking is enough to receive your ticket |
+  | Get payment details | `GET /bookings/{bookingId}/payment` | **New in v2.0.0** |
+
+  ---
+  > **Breaking Changes in v2.0.0:** `Station.country_code` renamed to `country`; `Trip.price` replaced by `Trip.pricing` object; `Booking.passenger_name`, `has_bicycle`, `has_dog` replaced by `passenger` object and `extras` object; `POST /bookings/{bookingId}/payment` now returns `200` instead of `201`.
+
+  ### 🔴 Breaking Changes（v1.0.0との非互換）
+
+  | 変更箇所 | v1.0.0 | v2.0.0 (Breaking) |
+  |---|---|---|
+  | **`Station.country_code`** | `country_code: string` | `country: string`（リネーム） |
+  | **`Trip.price`** | `price: number` | `pricing: {amount, currency}`（オブジェクト化） |
+  | **`Booking.passenger_name`** | `passenger_name: string` | `passenger: {name, email}`（オブジェクト化） |
+  | **`Booking.has_bicycle` / `has_dog`** | フラットなboolean | `extras: {bicycle, dog}`（オブジェクト統合） |
+  | **`POST /bookings/{bookingId}/payment` レスポンス** | `201 Created` | `200 OK`（ステータスコード変更） |
+  | **バージョン** | `1.0.0` | `2.0.0` |
+
+
+  Contact Support:
+   Name: Train Support
+   Email: support@example.com
+variables:
+  baseUrl: http://localhost:8080
+auth:
+  - id: 84ac40aa-6257-4b5e-86a4-2646ddb25a06
+    type: oauth2
+    name: oauth2 auth
+    credentials:
+      scope: read write
+      accessTokenUrl: https://example.com/oauth/token
+      authUrl: https://example.com/oauth/authorize
+      grant_type: authorization_code

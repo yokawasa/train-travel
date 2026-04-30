@@ -1,0 +1,161 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/stations?page=1&limit=10&coordinates=52.5200,13.4050&search=Milano Centrale&country=DE"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  queryParams:
+    - key: page
+      value: "1"
+      description: The page number to return
+    - key: limit
+      value: "10"
+      description: The number of items to return per page
+    - key: coordinates
+      value: 52.5200,13.4050
+      description: |
+        The latitude and longitude of the user's location, to narrow down the search results to sites within a proximity of this location.
+    - key: search
+      value: Milano Centrale
+      description: |
+        A search term to filter the list of stations by name or address.
+    - key: country
+      value: DE
+      description: Filter stations by country code
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "data": [
+          {
+            "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+            "name": "Berlin Hauptbahnhof",
+            "address": "Invalidenstraße 10557 Berlin, Germany",
+            "country": "DE",
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "id": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+            "name": "Paris Gare du Nord",
+            "address": "18 Rue de Dunkerque 75010 Paris, France",
+            "country": "FR",
+            "timezone": "Europe/Paris"
+          }
+        ],
+        "links": {
+          "self": "https://api.example.com/stations&page=2",
+          "next": "https://api.example.com/stations?page=3",
+          "prev": "https://api.example.com/stations?page=1"
+        }
+      }
+    $type: |-
+      {
+        "allOf": [
+          {
+            "description": "This is a generic request/response wrapper which contains both data and links which serve as hypermedia controls (HATEOAS).",
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "description": "The wrapper for a collection is an array of objects.",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "links": {
+                "type": "object",
+                "description": "A set of hypermedia links which serve as controls for the client."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "description": "A train station.",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique identifier for the station.",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the station"
+                    },
+                    "address": {
+                      "type": "string",
+                      "description": "The address of the station."
+                    },
+                    "country": {
+                      "type": "string",
+                      "description": "The ISO country code of the station."
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "description": "The timezone of the station in the [IANA Time Zone Database format](https://www.iana.org/time-zones)."
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "address",
+                    "country"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "links": {
+                "allOf": [
+                  {
+                    "description": "The link to the current resource.",
+                    "type": "object",
+                    "properties": {
+                      "self": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  },
+                  {
+                    "description": "Links to the next and previous pages of a paginated response.",
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "prev": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+order: 1000

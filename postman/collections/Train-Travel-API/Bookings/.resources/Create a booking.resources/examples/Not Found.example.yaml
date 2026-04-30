@@ -31,9 +31,8 @@ response:
       {
         "type": "https://example.com/errors/not-found",
         "title": "Not Found",
-        "detail": "The requested resource was not found.",
-        "instance": "<string>",
-        "status": 404
+        "status": 404,
+        "detail": "The requested resource was not found."
       }
     $type: |-
       {

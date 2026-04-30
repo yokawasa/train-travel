@@ -1,5 +1,4 @@
 $kind: http-request
-name: List existing bookings
 description: Returns a list of all trip bookings by the authenticated user.
 url: "{{baseUrl}}/bookings?page=1&limit=2"
 method: GET
@@ -38,8 +37,6 @@ queryParams:
 body:
   type: text
   content: ""
-examples: ./.resources/List existing bookings.resources/examples
-order: 1000
 scripts:
   - type: afterResponse
     code: |-
@@ -92,3 +89,10 @@ scripts:
           console.log("bookingId set to: " + bookingId);
       }
     language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '200'});
+    language: text/javascript
+examples: ./.resources/List existing bookings.resources/examples
+order: 1000

@@ -31,9 +31,8 @@ response:
       {
         "type": "https://example.com/errors/conflict",
         "title": "Conflict",
-        "detail": "There is a conflict with an existing resource.",
-        "instance": "<string>",
-        "status": 409
+        "status": 409,
+        "detail": "There is a conflict with an existing resource."
       }
     $type: |-
       {

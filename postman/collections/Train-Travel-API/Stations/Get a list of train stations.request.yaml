@@ -1,5 +1,4 @@
 $kind: http-request
-name: Get a list of train stations
 description: Returns a paginated and searchable list of all train stations.
 url: "{{baseUrl}}/stations?page=1&limit=10&coordinates=52.5200,13.4050&search=Milano Centrale&country=DE"
 method: GET
@@ -39,48 +38,19 @@ queryParams:
     value: 52.5200,13.4050
     description: |
       The latitude and longitude of the user's location, to narrow down the search results to sites within a proximity of this location.
-    $type: |-
-      {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "default": "<string>"
-          }
-        }
-      }
+    $type: string
   - key: search
     value: Milano Centrale
     description: |
       A search term to filter the list of stations by name or address.
-    $type: |-
-      {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "default": "<string>"
-          }
-        }
-      }
+    $type: string
   - key: country
     value: DE
     description: Filter stations by country code
-    $type: |-
-      {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "default": "<string>"
-          }
-        }
-      }
+    $type: string
 body:
   type: text
   content: ""
-examples: ./.resources/Get a list of train stations.resources/examples
-order: 1000
 scripts:
   - type: afterResponse
     code: |-
@@ -126,3 +96,11 @@ scripts:
           const json = pm.response.json();
           pm.expect(json.links).to.have.property("self").that.is.a("string");
       });
+    language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '200'});
+    language: text/javascript
+examples: ./.resources/Get a list of train stations.resources/examples
+order: 1000

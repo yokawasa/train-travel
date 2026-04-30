@@ -31,9 +31,8 @@ response:
       {
         "type": "https://example.com/errors/bad-request",
         "title": "Bad Request",
-        "detail": "The request is invalid or missing required parameters.",
-        "instance": "<string>",
-        "status": 400
+        "status": 400,
+        "detail": "The request is invalid or missing required parameters."
       }
     $type: |-
       {

@@ -1,0 +1,28 @@
+$kind: http-request
+description: Returns the details of a specific train trip.
+url: "{{baseUrl}}/trips/:tripId"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: tripId
+    value: ea399ba1-6d95-433f-92d1-83f67b775594
+    description: The ID of the trip to retrieve.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+examples: ./.resources/Get a trip.resources/examples
+order: 2000

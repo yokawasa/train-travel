@@ -31,9 +31,8 @@ response:
       {
         "type": "https://example.com/errors/unauthorized",
         "title": "Unauthorized",
-        "detail": "You do not have the necessary permissions.",
-        "instance": "<string>",
-        "status": 401
+        "status": 401,
+        "detail": "You do not have the necessary permissions."
       }
     $type: |-
       {
