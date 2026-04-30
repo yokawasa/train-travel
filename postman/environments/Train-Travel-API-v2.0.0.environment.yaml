@@ -2,3 +2,5 @@ name: Train-Travel-API-v2.0.0
 values:
   - key: baseUrl
     value: 'https://96c8de01-a672-453b-a703-351a79d31386.mock.pstmn.io'
+    enabled: true
+color: null
