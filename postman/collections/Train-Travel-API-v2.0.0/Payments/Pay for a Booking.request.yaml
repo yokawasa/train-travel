@@ -1,0 +1,175 @@
+$kind: http-request
+description: A payment is an attempt to pay for the booking, which will confirm the booking for the user and enable them to get their tickets.
+url: "{{baseUrl}}/bookings/:bookingId/payment"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: bookingId
+    value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+    description: The ID of the booking to pay for.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "format": "uuid",
+            "default": "<uuid>"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "amount": 49.99,
+      "currency": "gbp",
+      "source": {
+        "name": "J. Doe",
+        "number": "4242424242424242",
+        "account_type": "company",
+        "bank_name": "<string>",
+        "country": "<string>",
+        "object": "card",
+        "sort_code": "<string>"
+      }
+    }
+  $type: |-
+    {
+      "description": "A payment for a booking.",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Amount intended to be collected by this payment. A positive decimal figure describing the amount to be collected."
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "bam",
+            "bgn",
+            "chf",
+            "eur",
+            "gbp",
+            "nok",
+            "sek",
+            "try"
+          ],
+          "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase."
+        },
+        "source": {
+          "description": "The payment source to take the payment from. This can be a card or a bank account. Some of these properties will be hidden on read to protect PII leaking.",
+          "oneOf": [
+            {
+              "description": "A card (debit or credit) to take payment from.",
+              "title": "Card",
+              "type": "object",
+              "properties": {
+                "object": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Cardholder's full name as it appears on the card."
+                },
+                "number": {
+                  "type": "string",
+                  "description": "The card number, as a string without any separators. On read all but the last four digits will be masked for security."
+                },
+                "cvc": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 4,
+                  "example": "123",
+                  "description": "Card security code, 3 or 4 digits usually found on the back of the card."
+                },
+                "exp_month": {
+                  "type": "integer",
+                  "description": "Two-digit number representing the card's expiration month.",
+                  "format": "int64"
+                },
+                "exp_year": {
+                  "type": "integer",
+                  "description": "Four-digit number representing the card's expiration year.",
+                  "format": "int64"
+                },
+                "address_line1": {
+                  "type": "string"
+                },
+                "address_line2": {
+                  "type": "string"
+                },
+                "address_city": {
+                  "type": "string"
+                },
+                "address_country": {
+                  "type": "string"
+                },
+                "address_post_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "number",
+                "cvc",
+                "exp_month",
+                "exp_year",
+                "address_country"
+              ]
+            },
+            {
+              "description": "A bank account to take payment from. Must be able to make payments in the currency specified in the payment.",
+              "title": "Bank Account",
+              "type": "object",
+              "properties": {
+                "object": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string",
+                  "description": "The account number for the bank account, in string form. Must be a current account."
+                },
+                "sort_code": {
+                  "type": "string",
+                  "description": "The sort code for the bank account, in string form. Must be a six-digit number."
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "individual",
+                    "company"
+                  ],
+                  "description": "The type of entity that holds the account. This can be either `individual` or `company`."
+                },
+                "bank_name": {
+                  "type": "string",
+                  "description": "The name of the bank associated with the routing number."
+                },
+                "country": {
+                  "type": "string",
+                  "description": "Two-letter country code (ISO 3166-1 alpha-2)."
+                }
+              },
+              "required": [
+                "name",
+                "number",
+                "account_type",
+                "bank_name",
+                "country"
+              ]
+            }
+          ]
+        }
+      }
+    }
+examples: ./.resources/Pay for a Booking.resources/examples
+order: 2000

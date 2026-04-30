@@ -1,5 +1,4 @@
 $kind: http-request
-name: Delete a booking
 description: Deletes a booking, cancelling the hold on the trip.
 url: "{{baseUrl}}/bookings/:bookingId"
 method: DELETE
@@ -33,8 +32,6 @@ auth:
     accessTokenUrl: https://example.com/oauth/token
     authUrl: https://example.com/oauth/authorize
     grant_type: authorization_code
-examples: ./.resources/Delete a booking.resources/examples
-order: 4000
 scripts:
   - type: afterResponse
     code: |
@@ -66,3 +63,10 @@ scripts:
           });
       }
     language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '204'});
+    language: text/javascript
+examples: ./.resources/Delete a booking.resources/examples
+order: 4000

@@ -1,5 +1,4 @@
 $kind: http-request
-name: Pay for a Booking
 description: A payment is an attempt to pay for the booking, which will confirm the booking for the user and enable them to get their tickets.
 url: "{{baseUrl}}/bookings/:bookingId/payment"
 method: POST
@@ -31,13 +30,17 @@ body:
       "amount": 49.99,
       "currency": "gbp",
       "source": {
-        "object": "card",
         "name": "J. Doe",
         "number": "4242424242424242",
         "cvc": 123,
         "exp_month": 12,
         "exp_year": 2025,
-        "address_country": "gb"
+        "address_country": "gb",
+        "object": "card",
+        "address_line1": "123 Fake Street",
+        "address_line2": "4th Floor",
+        "address_city": "London",
+        "address_post_code": "N12 9XX"
       }
     }
   $type: |-
@@ -172,14 +175,12 @@ body:
         }
       }
     }
-examples: ./.resources/Pay for a Booking.resources/examples
-order: 1000
 scripts:
   - type: afterResponse
     code: |-
       // Contract Test: POST /bookings/{bookingId}/payment
-      pm.test("Status code is 200", function () {
-          pm.response.to.have.status(200);
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
       });
 
       pm.test("Content-Type is application/json", function () {
@@ -221,3 +222,11 @@ scripts:
           pm.expect(json).to.have.property("links").that.is.an("object");
           pm.expect(json.links).to.have.property("booking").that.is.a("string");
       });
+    language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '201'});
+    language: text/javascript
+examples: ./.resources/Pay for a Booking.resources/examples
+order: 1000

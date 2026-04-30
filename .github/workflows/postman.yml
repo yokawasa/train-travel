@@ -34,7 +34,9 @@ jobs:
         run: npm --prefix server run postman:test
       - name: Push to Postman Cloud (only when code is merged)
         if: github.event_name == 'push'
-        run: postman workspace push -y
+        run: |
+          postman workspace prepare
+          postman workspace push -y
       - name: Stop API server
         if: always()
         run: npm --prefix server run daemon:stop

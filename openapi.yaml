@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Train-Travel-API
+  title: Train-Travel-API (v1.0.0)
   description: |
     Travelling by train usually requires a train ticket.
 
@@ -16,7 +16,7 @@ info:
     | Make your booking | `POST /bookings` | Usually one booking is enough. But if you want to organize your next holidays you may book as many tickets as you like |
     | Issue your ticket by paying | `POST /bookings/{bookingId}/payment` | One payment per booking is enough to receive your ticket |
 
-  version: 1.2.1
+  version: 1.0.0
   contact:
     name: Train Support
     url: https://example.com/support
@@ -582,7 +582,7 @@ paths:
                     bank_name: Starling Bank
                     country: gb
       responses:
-        '200':
+        '201':
           description: Payment successful
           headers:
             Cache-Control:

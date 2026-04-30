@@ -1,0 +1,117 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/bookings"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  body:
+    type: json
+    content: |-
+      {
+        "trip_id": "582ff4df-5234-1c79-deec-82cb845812c8",
+        "passenger": {
+          "name": "string",
+          "email": "9sBM6Prv@rhkseeTRvfHtcaDMMNoslJb.ptci"
+        },
+        "extras": {
+          "bicycle": false,
+          "dog": false
+        }
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "trip_id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "passenger": {
+          "name": "John Doe",
+          "email": "john.doe@example.com"
+        },
+        "extras": {
+          "bicycle": true,
+          "dog": true
+        },
+        "links": {
+          "self": "https://api.example.com/bookings/efdbb9d1-02c2-4bc3-afb7-6788d8782b1e"
+        }
+      }
+    $type: |-
+      {
+        "allOf": [
+          {
+            "description": "A booking for a train trip.",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the booking",
+                "format": "uuid"
+              },
+              "trip_id": {
+                "type": "string",
+                "description": "Identifier of the booked trip",
+                "format": "uuid"
+              },
+              "passenger": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Full name of the passenger"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the passenger",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email"
+                ]
+              },
+              "extras": {
+                "type": "object",
+                "properties": {
+                  "bicycle": {
+                    "type": "boolean",
+                    "description": "Whether the passenger is bringing a bicycle"
+                  },
+                  "dog": {
+                    "type": "boolean",
+                    "description": "Whether the passenger is bringing a dog"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "links": {
+                "type": "object",
+                "description": "The link to the current resource.",
+                "properties": {
+                  "self": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+order: 1000

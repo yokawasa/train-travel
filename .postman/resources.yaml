@@ -4,6 +4,7 @@ workspace:
 localResources:
   specs:
     - ../openapi.yaml
+    - ../postman/specs/openapi-v1.1.0.yaml
   collections:
     - ../postman/collections/Train-Travel-API
     - ../postman/collections/Train-Travel-API-Scenario-Tests
@@ -14,9 +15,15 @@ localResources:
 
 cloudResources:
   collections:
-    ../postman/collections/Train-Travel-API: 52523-2f62e5fc-b2b8-4bd5-aeae-f323d90fcea9
     ../postman/collections/Train-Travel-API-Scenario-Tests: 52523-d1202ae3-8c6d-42ee-8670-7d623416ca6f
+    ../postman/collections/Train-Travel-API: 52523-2f62e5fc-b2b8-4bd5-aeae-f323d90fcea9
+    ../postman/collections/Train-Travel-API-v1.1.0: 52523-e1438410-51b4-4206-889d-76bcf17f14e3
+    ../postman/collections/Train-Travel-API-v2.0.0: 52523-c59b930a-131e-4c4f-82cd-96cbd457d7e0
   environments:
     ../postman/environments/Development.environment.yaml: 52523-beafaf3a-74e3-4f13-96bd-2de25a19e249
+    ../postman/environments/Train-Travel-API-v1.1.0.environment.yaml: 52523-9d2347c6-257b-48e3-a329-6bfe4a4630ee
+    ../postman/environments/Train-Travel-API-v2.0.0.environment.yaml: 52523-37ac0892-da90-4c58-aa4a-70348d58de59
   specs:
     ../openapi.yaml: cade78e6-cd8f-4af3-9b0c-363b2d683611
+    ../postman/specs/openapi-v1.1.0.yaml: 42bff42f-4548-41af-94f2-5cf4e019b396
+    ../postman/specs/openapi-v2.0.0.yaml: 54999672-9e24-4cb1-97ca-73a85fba6976

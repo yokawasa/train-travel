@@ -1,0 +1,107 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/trips/:tripId"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    - key: tripId
+      value: ea399ba1-6d95-433f-92d1-83f67b775594
+      description: The ID of the trip to retrieve.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "id": "ea399ba1-6d95-433f-92d1-83f67b775594",
+        "origin": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "destination": "b2e783e1-c824-4d63-b37a-d8d698862f1d",
+        "departure_time": "2024-02-01T10:00:00Z",
+        "arrival_time": "2024-02-01T16:00:00Z",
+        "operator": "Deutsche Bahn",
+        "pricing": {
+          "amount": 50,
+          "currency": "eur"
+        },
+        "bicycles_allowed": true,
+        "dogs_allowed": true
+      }
+    $type: |-
+      {
+        "description": "A train trip.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the trip",
+            "format": "uuid"
+          },
+          "origin": {
+            "type": "string",
+            "description": "The starting station of the trip"
+          },
+          "destination": {
+            "type": "string",
+            "description": "The destination station of the trip"
+          },
+          "departure_time": {
+            "type": "string",
+            "description": "The date and time when the trip departs",
+            "format": "date-time"
+          },
+          "arrival_time": {
+            "type": "string",
+            "description": "The date and time when the trip arrives",
+            "format": "date-time"
+          },
+          "operator": {
+            "type": "string",
+            "description": "The name of the operator of the trip"
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "description": "The cost of the trip"
+              },
+              "currency": {
+                "type": "string",
+                "enum": [
+                  "bam",
+                  "bgn",
+                  "chf",
+                  "eur",
+                  "gbp",
+                  "nok",
+                  "sek",
+                  "try"
+                ],
+                "description": "Three-letter ISO currency code"
+              }
+            }
+          },
+          "bicycles_allowed": {
+            "type": "boolean",
+            "description": "Indicates whether bicycles are allowed on the trip"
+          },
+          "dogs_allowed": {
+            "type": "boolean",
+            "description": "Indicates whether dogs are allowed on the trip"
+          }
+        }
+      }
+order: 1000

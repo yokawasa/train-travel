@@ -1,0 +1,86 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/bookings/:bookingId"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    - key: bookingId
+      value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+      description: The ID of the booking to retrieve.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+    Cache-Control: ""
+    RateLimit: ""
+  body:
+    type: json
+    content: |-
+      {
+        "id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "trip_id": "efdbb9d1-02c2-4bc3-afb7-6788d8782b1e",
+        "passenger_name": "John Doe",
+        "has_bicycle": true,
+        "has_dog": true,
+        "links": {
+          "self": "https://api.example.com/bookings/1725ff48-ab45-4bb5-9d02-88745177dedb"
+        }
+      }
+    $type: |-
+      {
+        "allOf": [
+          {
+            "description": "A booking for a train trip.",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the booking",
+                "format": "uuid"
+              },
+              "trip_id": {
+                "type": "string",
+                "description": "Identifier of the booked trip",
+                "format": "uuid"
+              },
+              "passenger_name": {
+                "type": "string",
+                "description": "Name of the passenger"
+              },
+              "has_bicycle": {
+                "type": "boolean",
+                "description": "Indicates whether the passenger has a bicycle."
+              },
+              "has_dog": {
+                "type": "boolean",
+                "description": "Indicates whether the passenger has a dog."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "links": {
+                "type": "object",
+                "description": "The link to the current resource.",
+                "properties": {
+                  "self": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+order: 1000

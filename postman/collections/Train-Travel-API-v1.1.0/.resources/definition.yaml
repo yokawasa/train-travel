@@ -1,0 +1,57 @@
+$kind: collection
+description: |-
+  Travelling by train usually requires a train ticket.
+
+  With this API you will be able to search, book and pay for a train
+  ticket and enjoy watching the landscapes by the window.
+
+  Below is the set of API calls you will need to do to get your ticket.
+
+  | Description | API | Repeat? |
+  |---|---|---|
+  | Search for train stations | `GET /stations` | Call this operation as many times as needed to find your origin and destination train stations |
+  | Lookup train schedules and ticket availability | `GET /trips` | As many calls as necessary, you will provide both the origin and destination station IDs and a traveling date |
+  | Make your booking | `POST /bookings` | Usually one booking is enough. But if you want to organize your next holidays you may book as many tickets as you like |
+  | Issue your ticket by paying | `POST /bookings/{bookingId}/payment` | One payment per booking is enough to receive your ticket |
+
+  ---
+
+  ## v1.1.0 追加内容（v1.0.0との差分）
+
+  ### 新エンドポイント
+
+  | エンドポイント | operationId | 説明 |
+  |---|---|---|
+  | `GET /stations/{stationId}` | `get-station` | 特定の駅の詳細情報を取得 |
+  | `GET /trips/{tripId}` | `get-trip` | 特定のトリップの詳細情報を取得 |
+  | `GET /bookings/{bookingId}/payment` | `get-booking-payment` | 予約の支払い状況・詳細を確認 |
+
+  ### 新Webhook
+
+  | Webhook | operationId | 説明 |
+  |---|---|---|
+  | `bookingCancelled` | `booking-cancelled` | 予約キャンセル時の通知 |
+
+  ---
+
+  ### 設計方針
+
+  - **後方互換性**: 既存の全エンドポイント（`GET /stations`, `GET /trips`, `GET/POST /bookings`, `GET/DELETE /bookings/{bookingId}`, `POST /bookings/{bookingId}/payment`, `newBooking` webhook）は一切変更なし
+  - **一貫性**: 既存のスキーマ（`$ref`）・エラーレスポンス・ヘッダー定義を再利用
+  - **自然な拡張**: v1.0.0ではリスト取得のみだった Stations/Trips に、個別リソース取得（GET by ID）を追加。支払い確認のGETも実用的な追加
+
+
+  Contact Support:
+   Name: Train Support
+   Email: support@example.com
+variables:
+  baseUrl: http://localhost:8080
+auth:
+  - id: eeaebf75-4825-4ad9-8058-55e7cd407846
+    type: oauth2
+    name: oauth2 auth
+    credentials:
+      scope: read write
+      accessTokenUrl: https://example.com/oauth/token
+      authUrl: https://example.com/oauth/authorize
+      grant_type: authorization_code

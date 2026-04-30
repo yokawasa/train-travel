@@ -1,0 +1,22 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/bookings/:bookingId"
+  method: DELETE
+  headers:
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    - key: bookingId
+      value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+      description: The ID of the booking to retrieve.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 204
+  statusText: No Content
+  body:
+    type: text
+    content: ""
+order: 1000

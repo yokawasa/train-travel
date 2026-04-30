@@ -1,5 +1,4 @@
 $kind: http-request
-name: Get a booking
 description: Returns the details of a specific booking.
 url: "{{baseUrl}}/bookings/:bookingId"
 method: GET
@@ -26,8 +25,6 @@ pathVariables:
 body:
   type: text
   content: ""
-examples: ./.resources/Get a booking.resources/examples
-order: 3000
 scripts:
   - type: afterResponse
     code: |-
@@ -60,3 +57,11 @@ scripts:
           pm.expect(json).to.have.property("links").that.is.an("object");
           pm.expect(json.links).to.have.property("self").that.is.a("string");
       });
+    language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '200'});
+    language: text/javascript
+examples: ./.resources/Get a booking.resources/examples
+order: 3000

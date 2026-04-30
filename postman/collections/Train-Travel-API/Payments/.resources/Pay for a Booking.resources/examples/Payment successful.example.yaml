@@ -23,16 +23,20 @@ request:
         "source": {
           "name": "J. Doe",
           "number": "4242424242424242",
-          "account_type": "individual",
-          "bank_name": "<string>",
-          "country": "<string>",
+          "cvc": "123",
+          "exp_month": 12,
+          "exp_year": 2025,
+          "address_country": "gb",
           "object": "card",
-          "sort_code": "<string>"
+          "address_line1": "123 Fake Street",
+          "address_line2": "4th Floor",
+          "address_city": "London",
+          "address_post_code": "N12 9XX"
         }
       }
 response:
-  statusCode: 200
-  statusText: OK
+  statusCode: 201
+  statusText: Created
   headers:
     Content-Type: application/json
     Cache-Control: ""
@@ -223,4 +227,4 @@ response:
           }
         ]
       }
-order: 1000
+order: 6000

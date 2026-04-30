@@ -1,5 +1,4 @@
 $kind: http-request
-name: Get available train trips
 description: |
   Returns a list of available train trips between the specified origin and destination stations on the given date, and allows for filtering by bicycle and dog allowances.
 url: "{{baseUrl}}/trips?page=1&limit=10&origin=efdbb9d1-02c2-4bc3-afb7-6788d8782b1e&destination=b2e783e1-c824-4d63-b37a-d8d698862f1d&date=2024-02-01T09:00:00Z&bicycles=false&dogs=false"
@@ -116,8 +115,6 @@ queryParams:
 body:
   type: text
   content: ""
-examples: ./.resources/Get available train trips.resources/examples
-order: 1000
 scripts:
   - type: afterResponse
     code: |-
@@ -166,3 +163,11 @@ scripts:
           const json = pm.response.json();
           pm.expect(json.links).to.have.property("self").that.is.a("string");
       });
+    language: text/javascript
+  - type: beforeRequest
+    code: |
+      // set header for mock testing
+      pm.request.headers.add({key: 'x-mock-response-code', value: '200'});
+    language: text/javascript
+examples: ./.resources/Get available train trips.resources/examples
+order: 1000

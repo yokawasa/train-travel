@@ -1,0 +1,62 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/bookings/:bookingId/payment"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: <token>
+      description: "Added as a part of security scheme: oauth2"
+  pathVariables:
+    - key: bookingId
+      value: 1725ff48-ab45-4bb5-9d02-88745177dedb
+      description: The ID of the booking to pay for.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 429
+  statusText: Too Many Requests
+  headers:
+    Content-Type: application/json
+    RateLimit: ""
+    Retry-After: ""
+  body:
+    type: json
+    content: |-
+      {
+        "type": "https://example.com/errors/too-many-requests",
+        "title": "Too Many Requests",
+        "detail": "You have exceeded the rate limit.",
+        "instance": "<string>",
+        "status": 429
+      }
+    $type: |-
+      {
+        "description": "A problem detail object as defined in RFC 7807.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URI reference that identifies the problem type"
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type"
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem"
+          },
+          "instance": {
+            "type": "string",
+            "description": "A URI reference that identifies the specific occurrence of the problem"
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code"
+          }
+        }
+      }
+order: 6000

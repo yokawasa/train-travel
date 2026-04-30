@@ -1,0 +1,46 @@
+$kind: http-request
+description: Returns a list of all trip bookings by the authenticated user.
+url: "{{baseUrl}}/bookings?page={{input}}&limit=10"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: page
+    value: "{{input}}"
+    description: The page number to return
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1
+          }
+        }
+      }
+  - key: limit
+    value: "10"
+    description: The number of items to return per page
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 100
+          }
+        }
+      }
+body:
+  type: text
+  content: ""
+scripts:
+  - type: beforeRequest
+    code: |+
+      
+    language: text/javascript
+examples: ./.resources/List existing bookings.resources/examples
+order: 1000
